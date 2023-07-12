@@ -1,8 +1,13 @@
 import express from 'express';
 import { __port__ } from './constants.js';
 import router from './routes/userRoutes.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import connectDB from './config/db.js';
 
 const PORT = __port__;
+
+connectDB();
+
 const app = express();
 
 app.use('/api/users', router);
@@ -10,6 +15,9 @@ app.use('/api/users', router);
 app.get('/', (req, res) => {
   res.send('Server is ready');
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
