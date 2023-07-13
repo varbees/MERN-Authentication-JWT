@@ -15,6 +15,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   res.status(statusCode).json({ message, stack: __prod__ ? null : err.stack });
+  next();
 };
 
 export { notFound, errorHandler };
