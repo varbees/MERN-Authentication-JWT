@@ -95,7 +95,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // route    POST /api/users/profile
 // access   private
 const deleteUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Delete User' });
+  const user = await User.findByIdAndRemove(req.params.id);
+  if (user) {
+    res.status(200);
+    res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
+    res.json({ message: 'Good bye, you are deleted from our databse' });
+  } else {
+    res.status(400);
+    throw new Error('Something went wrong');
+  }
 });
 
 export {

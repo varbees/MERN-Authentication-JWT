@@ -1,5 +1,5 @@
 import express from 'express';
-import { __port__ } from './constants.js';
+import { __port__, __prod__ } from './constants.js';
 import router from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
@@ -19,7 +19,9 @@ app.use(cookieParser());
 app.use('/api/users', router);
 
 app.get('/', (req, res) => {
-  res.send('Server is ready');
+  if (!__prod__) {
+    res.send('Server is ready');
+  }
 });
 
 app.use(notFound);
