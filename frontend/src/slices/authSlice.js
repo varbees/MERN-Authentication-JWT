@@ -6,6 +6,7 @@ const initialState = {
     : null,
 };
 
+//handling local storage on state change
 const authSlice = createSlice({
   name: 'auth',
   initialState,

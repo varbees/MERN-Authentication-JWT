@@ -26,6 +26,7 @@ const Register = () => {
             placeholder='name'
             value={name}
             onChange={evt => setName(evt.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group className='my-2' controlId='email'>
@@ -35,6 +36,7 @@ const Register = () => {
             placeholder='name@gmail.com'
             value={email}
             onChange={evt => setEmail(evt.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group className='my-2' controlId='password'>
@@ -44,6 +46,7 @@ const Register = () => {
             value={password}
             placeholder='Password'
             onChange={evt => setPassword(evt.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group className='my-2' controlId='confirmPassword'>
@@ -53,6 +56,7 @@ const Register = () => {
             value={confirmPassword}
             placeholder='Confirm password'
             onChange={evt => setConfirmPassword(evt.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary' className='mt-3'>
