@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useForm } from '../helpers/useForm';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
@@ -9,8 +10,10 @@ import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [{ email, password }, handleChange] = useForm({
+    email: '',
+    password: '',
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,8 +49,9 @@ const Login = () => {
             <Form.Control
               type='email'
               placeholder='signature@gmail.com'
+              name='email'
               value={email}
-              onChange={evt => setEmail(evt.target.value)}
+              onChange={handleChange}
               required
             ></Form.Control>
           </Form.Group>
@@ -55,8 +59,9 @@ const Login = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type='password'
+              name='password'
               value={password}
-              onChange={evt => setPassword(evt.target.value)}
+              onChange={handleChange}
               required
             ></Form.Control>
           </Form.Group>
