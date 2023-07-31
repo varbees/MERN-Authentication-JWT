@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import { __port__, __prod__ } from './constants.js';
 import router from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
@@ -18,11 +19,17 @@ app.use(cookieParser());
 
 app.use('/api/users', router);
 
-app.get('/', (req, res) => {
-  if (!__prod__) {
+if (!__prod__) {
+  app.get('/', (req, res) => {
     res.send('Server is ready');
-  }
-});
+  });
+} else {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+}
 
 app.use(notFound);
 app.use(errorHandler);
